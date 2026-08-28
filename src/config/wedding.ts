@@ -385,8 +385,14 @@ export const wedding = {
     title: "Brenda & Samuel — 23.01.2027",
     description:
       "O convite de casamento de Brenda e Samuel. Confirme sua presença.",
-    /** URL canônica do site em produção (usada em og:url / metadataBase). */
-    url: "https://brenda-e-samuel.vercel.app",
+    /**
+     * URL canônica do site em produção (og:url / metadataBase).
+     * Ajuste depois do primeiro deploy para o domínio real, ou defina a
+     * variável de ambiente NEXT_PUBLIC_SITE_URL na Vercel.
+     */
+    url:
+      process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+      "https://brenda-e-samuel.vercel.app",
     locale: "pt-BR",
   },
 } as const;
