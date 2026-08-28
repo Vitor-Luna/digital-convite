@@ -191,7 +191,7 @@ export const wedding = {
         dateLabel: "04 de dezembro de 2022",
         title: "A primeira vez que nos vimos",
         text:
-          "O começo de tudo — adicione aqui a lembrança desse primeiro encontro.",
+          "O começo de tudo.",
         photo: img(
           "/photos/historia-1.webp",
           "A primeira vez que nos vimos",
