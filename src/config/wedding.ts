@@ -230,7 +230,7 @@ export const wedding = {
   /* ---------------------------------------------------------------------- */
   gallery: {
     title: "Momentos",
-    intro: "Um panorama da nossa caminhada. Adicione mais fotos aqui quando quiser.",
+    intro: "Um panorama da nossa caminhada.",
     photos: [
       img("/photos/hero.webp", "Brenda e Samuel", "landscape"),
       img("/photos/historia-1.webp", "Brenda e Samuel", "portrait"),
