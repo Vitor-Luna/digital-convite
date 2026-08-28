@@ -1,0 +1,100 @@
+// ============================================================================
+//  SCHEMA DO BANCO DE DADOS  —  PostgreSQL + Prisma
+// ============================================================================
+//  Cada PESSOA (convidado principal e acompanhantes) é uma linha própria em
+//  `Person`. O painel conta PESSOAS, nunca "quantidade de acompanhantes".
+//
+//  Comandos:
+//    npm run db:start     inicia o Postgres local (sem Docker)
+//    npm run db:migrate   cria/aplica migrations em desenvolvimento
+//    npm run db:seed      popula dados de exemplo
+//    npm run db:studio    abre o Prisma Studio
+//    npm run db:deploy    aplica migrations em produção
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl: opcional. `prisma dev` cria o shadow automaticamente.
+  // Para um Postgres próprio em dev, defina SHADOW_DATABASE_URL e descomente:
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+/// Status de aprovação de uma confirmação (decidido manualmente pelos noivos).
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  DISAPPROVED
+}
+
+/// Onde o grupo da confirmação vai comparecer. Regra aplicada ao grupo inteiro.
+/// Todo mundo que comparece vai à CERIMÔNIA; alguns também vão ao RESTAURANTE.
+enum AttendanceType {
+  CEREMONY_AND_RESTAURANT
+  CEREMONY_ONLY
+}
+
+/// Uma submissão do formulário de RSVP. Pode representar várias pessoas.
+model Submission {
+  id String @id @default(cuid())
+
+  /// true = "Comparecerei"; false = "Não comparecerei".
+  willAttend Boolean
+
+  /// Definido apenas quando willAttend = true.
+  attendanceType AttendanceType?
+
+  /// Toda confirmação começa como PENDING.
+  approvalStatus ApprovalStatus @default(PENDING)
+
+  /// Nome de quem preencheu — sempre presente, inclusive nas recusas.
+  contactName String
+
+  /// Observação livre opcional (ex.: motivo da ausência).
+  note String?
+
+  /// Pessoas do grupo (convidado principal + acompanhantes).
+  people Person[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([willAttend, approvalStatus])
+  @@index([attendanceType])
+  @@index([createdAt])
+}
+
+/// Uma pessoa individual dentro de uma confirmação.
+model Person {
+  id String @id @default(cuid())
+
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submissionId String
+
+  /// false = convidado principal; true = acompanhante.
+  isCompanion Boolean @default(false)
+
+  fullName String
+  age      Int
+  phone    String
+
+  createdAt DateTime @default(now())
+
+  @@index([submissionId])
+}
+
+/// Recado deixado por um convidado no mural.
+model Message {
+  id          String   @id @default(cuid())
+  guestName   String
+  messageText String
+  /// Moderação simples: mensagens só aparecem publicamente se approved = true.
+  approved    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([approved, createdAt])
+}

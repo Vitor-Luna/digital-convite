@@ -1,26 +1,278 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   DESIGN TOKENS
+   Valores de fallback. Os reais são injetados pelo RootLayout a partir de
+   src/config/wedding.ts (função themeCssVars). Para trocar as cores, edite
+   APENAS aquele arquivo.
+   ========================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* paleta (dark-first: verde escuro + dourado + creme) */
+  --wc-primary: #20583b;
+  --wc-primary-soft: #2e7049;
+  --wc-secondary: #c9a46b;
+  --wc-bg: #0f2b1f;
+  --wc-surface: #15382697;
+  --wc-ink: #f4ede1;
+  --wc-ink-soft: #bbaf9b;
+  --wc-line: #c9a46b3d;
+  --wc-cream: #f7f3ed;
+  --wc-cream-2: #ebe2d4;
+  --wc-cream-ink: #2a2a24;
+  --wc-cream-ink-soft: #66666b;
+  --wc-error: #e8917c;
+  --wc-radius: 12px;
+
+  /* famílias tipográficas (os -src vêm do next/font no <html>) */
+  --font-display: var(--font-display-src), "Playfair Display", Georgia,
+    "Times New Roman", serif;
+  --font-sans: var(--font-sans-src), "Lato", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* escala tipográfica fluida */
+  --step--1: clamp(0.8rem, 0.78rem + 0.12vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-3: clamp(1.9rem, 1.5rem + 2vw, 3rem);
+  --step-4: clamp(2.4rem, 1.7rem + 3.4vw, 4.4rem);
+  --step-5: clamp(2.9rem, 1.7rem + 6vw, 6rem);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.28), 0 24px 48px rgba(0, 0, 0, 0.22);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.35), 0 40px 80px rgba(0, 0, 0, 0.3);
 }
 
+/* ==========================================================================
+   MAPEAMENTO PARA O TAILWIND (v4)
+   Gera utilitários: bg-primary, text-ink, border-line, font-display, etc.
+   ========================================================================== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--wc-primary);
+  --color-primary-soft: var(--wc-primary-soft);
+  --color-secondary: var(--wc-secondary);
+  --color-bg: var(--wc-bg);
+  --color-surface: var(--wc-surface);
+  --color-ink: var(--wc-ink);
+  --color-ink-soft: var(--wc-ink-soft);
+  --color-line: var(--wc-line);
+  --color-cream: var(--wc-cream);
+  --color-cream-2: var(--wc-cream-2);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --radius-base: var(--wc-radius);
+  --ease-fluid: var(--ease-out-expo);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  * {
+    border-color: var(--wc-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: auto; /* rolagem suave via Lenis */
+    scrollbar-gutter: stable;
+    background-color: var(--wc-bg);
+  }
+
+  body {
+    background-color: var(--wc-bg);
+    color: var(--wc-ink);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-synthesis: none;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--wc-secondary);
+    color: #0f2b1f;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--wc-secondary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   UTILITÁRIOS DE PROJETO
+   ========================================================================== */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+  }
+  .container-narrow {
+    width: 100%;
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  /* Seção CLARA (creme): redefine os tokens localmente para que qualquer
+     componente que use text-ink / border-line / bg-surface se adapte. */
+  .on-cream {
+    --wc-ink: var(--wc-cream-ink);
+    --wc-ink-soft: var(--wc-cream-ink-soft);
+    --wc-line: #ded2bd;
+    --wc-surface: #ffffff;
+    --wc-error: #b23b2e;
+    background-color: var(--wc-cream);
+    color: var(--wc-cream-ink);
+  }
+  .on-cream-2 {
+    --wc-ink: var(--wc-cream-ink);
+    --wc-ink-soft: var(--wc-cream-ink-soft);
+    --wc-line: #d8ccb6;
+    --wc-surface: #f7f3ed;
+    --wc-error: #b23b2e;
+    background-color: var(--wc-cream-2);
+    color: var(--wc-cream-ink);
+  }
+
+  /* filete dourado com coração — divisor sob os títulos */
+  .heart-rule {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--wc-secondary);
+  }
+  .heart-rule::before,
+  .heart-rule::after {
+    content: "";
+    height: 1px;
+    width: clamp(2rem, 8vw, 4rem);
+    background: linear-gradient(
+      to right,
+      transparent,
+      currentColor 40%,
+      currentColor 60%,
+      transparent
+    );
+  }
+
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--wc-line) 15%,
+      var(--wc-line) 85%,
+      transparent
+    );
+  }
+
+  /* Entrada suave sem JS de animação */
+  .animate-fade-in {
+    animation: wc-fade-in 0.5s var(--ease-out-expo) both;
+  }
+  .animate-fade-in-up {
+    animation: wc-fade-in-up 0.55s var(--ease-out-expo) both;
+  }
+  .animate-slide-in-right {
+    animation: wc-slide-in-right 0.34s var(--ease-out-expo) both;
+  }
+
+  /* Acordeão acessível sem JS de animação */
+  .collapse-grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s var(--ease-out-expo);
+  }
+  .collapse-grid[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+  .collapse-grid > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+}
+
+@keyframes wc-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes wc-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes wc-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-slide-in-right {
+    animation-duration: 0.01ms;
+  }
+  .collapse-grid {
+    transition-duration: 0.01ms;
+  }
 }
