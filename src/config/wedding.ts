@@ -187,40 +187,51 @@ export const wedding = {
       "Alguns momentos que nos trouxeram até aqui.",
     milestones: [
       {
-        date: "2022-12-04",
-        dateLabel: "04 de dezembro de 2022",
-        title: "A primeira vez que nos vimos",
+        date: "2023-12-03",
+        dateLabel: "03 de Dezembro de 2022",
+        title: "O Ínicio de tudo",
         text:
-          "O começo de tudo.",
-        photo: img(
-          "/photos/historia-1.webp",
-          "A primeira vez que nos vimos",
-          "portrait",
-        ),
+          "Um dia comum que acabou se tornando parte de tudo.",
+        photos: [
+          img(
+            "/photos/historia-6.jpg",
+            "A Primeira Foto",
+            "portrait",
+          ),
+        ],
       },
       {
         date: "2023-05-01",
         dateLabel: "01 de maio de 2023",
-        title: "Começamos a namorar",
+        title: "O Primeiro Sim.",
         text:
-          "O dia em que decidimos caminhar juntos.",
-        photo: img(
-          "/photos/historia-2.webp",
-          "Começamos a namorar",
-          "portrait",
-        ),
+          "O começo de uma história que ganhou muitos capítulos.",
+        photos: [
+          img(
+            "/photos/historia-7.jpg",
+            "Começamos a namorar",
+            "portrait",
+          ),
+        ],
       },
       {
         date: "2025-09-28",
         dateLabel: "28 de setembro de 2025",
-        title: "O pedido de casamento",
+        title: "O Pedido!",
         text:
-          "Um sim que mudou os planos para sempre.",
-        photo: img(
-          "/photos/historia-3.webp",
-          "O pedido de casamento",
-          "portrait",
-        ),
+          "Um Pedido, um “Sim”, e uma vida a ser vivida.",
+        photos: [
+          img(
+            "/photos/historia-4.jpg",
+            "O pedido de casamento",
+            "portrait",
+          ),
+          img(
+            "/photos/historia-5.jpg",
+            "O pedido de casamento",
+            "portrait",
+          ),
+        ],
       },
     ],
   },
@@ -232,10 +243,9 @@ export const wedding = {
     title: "Momentos",
     intro: "Um panorama da nossa caminhada.",
     photos: [
-      img("/photos/hero.webp", "Brenda e Samuel", "landscape"),
       img("/photos/historia-1.webp", "Brenda e Samuel", "portrait"),
       img("/photos/historia-3.webp", "Brenda e Samuel", "portrait"),
-      img("/photos/historia-2.webp", "Brenda e Samuel", "portrait"),
+      img("/photos/historia-9.jpg", "Brenda e Samuel", "portrait"),
       // Novas fotos: coloque em public/photos/ e adicione com
       // img("/photos/arquivo.webp", "descrição", "portrait" | "landscape" | "square"),
     ],
@@ -249,9 +259,11 @@ export const wedding = {
     items: [
       {
         text:
-          "Completai a minha alegria, de modo que penseis a mesma coisa, " +
-          "tenhais o mesmo amor, sejais unidos de alma, tendo o mesmo sentimento.",
-        reference: "Filipenses 2:2",
+          "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha." +
+          " Não maltrata, não procura seus interesses, não se ira facilmente, não guarda rancor." +
+          " O amor não se alegra com a injustiça, mas se alegra com a verdade." +
+          " Tudo sofre, tudo crê, tudo espera, tudo suporta.",
+        reference: "Coríntios  1: 4-7",
       },
     ],
   },
@@ -277,17 +289,14 @@ export const wedding = {
       note: "Chegue com 20 minutos de antecedência para acomodar-se com tranquilidade.",
       mapsQuery: "Igreja da Cidade, Rua Todas as Nações, São José dos Campos - SP",
     },
-    /**
-     * Restaurante. Aparece apenas para quem escolhe "Cerimônia e Restaurante".
-     * Valor atual = Praça da Sé (provisório). Atualize para o local real.
-     */
+    /** Restaurante. Aparece apenas para quem escolhe "Cerimônia e Restaurante". */
     restaurant: {
       label: "Restaurante",
-      name: "Praça da Sé",
-      address: "Praça da Sé — Centro, São Paulo - SP",
+      name: "Família Gaúcha",
+      address: "R. Mérida, 21 - Jardim America, São José dos Campos - SP, 12235-400",
       timeLabel: "",
       note: "Tire print ou salve este endereço. Lembre-se: no restaurante, cada convidado paga a própria conta (a sua e a de sua família ou acompanhantes).",
-      mapsQuery: "Praça da Sé, São Paulo - SP",
+      mapsQuery: "Família Gaúcha, Rua Mérida, 21, Jardim América, São José dos Campos - SP",
     },
   },
 
