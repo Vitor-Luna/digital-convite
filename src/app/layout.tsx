@@ -40,7 +40,11 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: wedding.theme.colors.background,
-  colorScheme: "dark",
+  // "dark light": o site tem cor fixa própria (não é adaptativo ao tema do
+  // sistema), mas sinaliza que sabe lidar com claro E escuro — isso evita
+  // que alguns Android/WebViews (Samsung Internet, WhatsApp in-app, etc.)
+  // apliquem o "force dark" deles sobre as seções claras (.on-cream).
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

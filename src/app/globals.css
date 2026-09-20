@@ -163,6 +163,9 @@
   /* Seção CLARA (creme): redefine os tokens localmente para que qualquer
      componente que use text-ink / border-line / bg-surface se adapte. */
   .on-cream {
+    /* Marca explicitamente este bloco como claro, para que o "force dark"
+       de alguns Android/WebViews não tente reescrever suas cores. */
+    color-scheme: light;
     --wc-ink: var(--wc-cream-ink);
     --wc-ink-soft: var(--wc-cream-ink-soft);
     --wc-line: #ded2bd;
@@ -172,6 +175,7 @@
     color: var(--wc-cream-ink);
   }
   .on-cream-2 {
+    color-scheme: light;
     --wc-ink: var(--wc-cream-ink);
     --wc-ink-soft: var(--wc-cream-ink-soft);
     --wc-line: #d8ccb6;
