@@ -295,7 +295,7 @@ export const wedding = {
       name: "Família Gaúcha",
       address: "R. Mérida, 21 - Jardim America, São José dos Campos - SP, 12235-400",
       timeLabel: "",
-      note: "Tire print ou salve este endereço. Lembre-se: no restaurante, cada convidado paga a própria conta (a sua e a de sua família ou acompanhantes).",
+      note: "Tire print ou salve este endereço. Lembre-se: no restaurante, cada convidado ficará responsável pela sua própria conta, incluindo o consumo de seus familiares e acompanhantes. Agradecemos muito pela compreensão e carinho de todos!",
       mapsQuery: "Família Gaúcha, Rua Mérida, 21, Jardim América, São José dos Campos - SP",
     },
   },
